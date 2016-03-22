@@ -1,0 +1,52 @@
+﻿<Page
+    x:Class="ChangeVisibilityOfButtonFromCodeMVVN.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ChangeVisibilityOfButtonFromCodeMVVN"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Converter="using:ChangeVisibilityOfButtonFromCodeMVVN.Converter"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.Resources>
+            <Converter:VisiableOrNot x:Key="cvt" />
+            <Converter:NaviButtonShowOrNot x:Key="btncvt" />
+        </Grid.Resources>
+        <CommandBar>
+            <CommandBar.Content>
+                <Grid>
+                    <TextBlock Text="Master-Frame" FontSize="20" Margin="20,10" />
+                </Grid>
+            </CommandBar.Content>
+            <AppBarButton Icon="Accept" Label="appbarbutton" Visibility="{Binding ElementName=mainPageframe, Path=Content.BaseUri.AbsoluteUri, Converter={StaticResource cvt}}" />
+            <AppBarButton Icon="Cancel" Label="appbarbutton" Visibility="{Binding ElementName=mainPageframe, Path=Content.BaseUri.AbsoluteUri, Converter={StaticResource cvt}}" />
+        </CommandBar>
+        <Frame x:Name="mainPageframe" Margin="0,55">
+            <Hub x:Name="hub" SectionHeaderClick="{x:Bind MainPageViewModel.hub_SectionHeaderClick}">
+                <HubSection x:Name="image1" Header="Image1" Width="200" IsHeaderInteractive="True">
+                    <DataTemplate>
+                        <Grid>
+                            <Image Source="Assets/111.png" Stretch="None" />
+                        </Grid>
+                    </DataTemplate>
+                </HubSection>
+                <HubSection x:Name="image2" Header="Image2" Width="200" IsHeaderInteractive="True">
+                    <DataTemplate>
+                        <Grid>
+                            <Image Grid.Row="0" Source="Assets/222.png" Stretch="None" />
+                        </Grid>
+                    </DataTemplate>
+                </HubSection>
+                <HubSection x:Name="image3" Header="Image3" Width="200" IsHeaderInteractive="True">
+                    <DataTemplate>
+                        <Grid>
+                            <Image Source="Assets/333.png" Stretch="None" />
+                        </Grid>
+                    </DataTemplate>
+                </HubSection>
+            </Hub>
+        </Frame>
+        <Button Content="Go Back" Click="{x:Bind MainPageViewModel.Button_Click}" Background="PaleGreen" VerticalAlignment="Bottom" Margin="50,20" Visibility="{Binding ElementName=mainPageframe, Path=Content.BaseUri.AbsoluteUri, Converter={StaticResource btncvt}}" />
+    </Grid>
+</Page>
